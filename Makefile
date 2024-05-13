@@ -16,10 +16,10 @@ install-acme:
 
 .PHONY: cook
 cook: check-env
-	envsubstr '${DOMAIN_NAME}' < ./docker-compose.yaml > ./docker-compose.yaml
-	envsubstr '${DOMAIN_NAME}' < ./blockscout/envs/common-frontend.env > ./blockscout/envs/common-frontend.env
-	envsubstr '${DOMAIN_NAME}' < ./blockscout/envs/common-blockscout.env > ./blockscout/envs/common-blockscout.env
-	envsubstr '${DOMAIN_NAME}' < ./nginx/nginx.conf > ./nginx/nginx.conf
+	envsubst < ./docker-compose.yaml > ./docker-compose.yaml
+	envsubst < ./blockscout/envs/common-frontend.env > ./blockscout/envs/common-frontend.env
+	envsubst < ./blockscout/envs/common-blockscout.env > ./blockscout/envs/common-blockscout.env
+	envsubst < ./nginx/nginx.conf > ./nginx/nginx.conf
 
 .PHONY: start
 start:
