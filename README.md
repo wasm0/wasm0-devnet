@@ -4,10 +4,8 @@ Fluent Developer Preview
 This repository contains scripts for .
 
 Before running command you must do following steps:
-- Buy a dedicated machine that have at least 8 dedicated CPU core and 32GB RAM (it runs 7 nodes)
+- Buy a dedicated machine that have at least 8 dedicated CPU core and 32GB RAM (it can run up to 7 nodes)
 - Make sure you have wildcard domain `*.example.com` set to your machine (use dedicated machine with public IP)
-
-Private key with balance: `ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
 
 You can check Makefile to choose the most interesting commands, but if you just need to set up everything just run next command:
 
