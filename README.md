@@ -15,7 +15,7 @@ You can check Makefile to choose the most interesting commands, but if you just 
 apt update
 apt install -y build-essential socat
 git clone https://github.com/fluentlabs-xyz/developer-preview --recursive
-cd bas
+cd developer-preview
 make install-docker
 make install-acme
 export CHAIN_ID=1337
