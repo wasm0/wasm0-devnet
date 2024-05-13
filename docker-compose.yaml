@@ -31,7 +31,7 @@ services:
   faucet:
     image: chainflag/eth-faucet:1.1.0
     environment:
-      WEB3_PROVIDER: "https://rpc.dev0.fluentlabs.xyz/"
+      WEB3_PROVIDER: "https://rpc.dev2.fluentlabs.xyz/"
       PRIVATE_KEY: "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
     restart: always
 
@@ -74,7 +74,7 @@ services:
 #      SUBNETWORK: "Fluent Dev"
 #      COIN_NAME: "FLUENT"
 #      CHAIN_ID: "1337"
-#      JSON_RPC: "https://rpc.dev0.fluentlabs.xyz/"
+#      JSON_RPC: "https://rpc.dev2.fluentlabs.xyz/"
 #    ports:
 #      - "4000:4000"
 
@@ -87,6 +87,5 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     ports:
-      - "80:80"
       - "443:443"
     restart: always
