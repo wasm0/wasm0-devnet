@@ -6,3 +6,9 @@
 # exclude modiifed files
 blockscout/envs/common-blockscout.env
 blockscout/envs/common-frontend.env
+
+# exclude blockscout database
+blockscout/services/blockscout-db-data/
+blockscout/services/logs/
+blockscout/services/redis-data/
+blockscout/services/stats-db-data/
