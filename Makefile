@@ -38,6 +38,11 @@ init-genesis-state:
 delete-state:
 	rm -rf ./datadir || true
 
+.PHONY: blockscout
+blockscout:
+	docker compose -f ./blockscout/geth.yml pull
+	docker compose -f ./blockscout/geth.yml up -d
+
 .PHONY: reset-blockscout
 reset-blockscout:
 	docker compose -f ./blockscout/geth.yml down || true
@@ -47,6 +52,8 @@ reset-blockscout:
 	rm -rf ./blockscout/services/stats-db-data || true
 	docker compose -f ./blockscout/geth.yml up -d
 
+.PHONY: reset
 reset: stop delete-state init-genesis-state
 
+.PHONY: all
 all: install-docker install-acme cook start
