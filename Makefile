@@ -30,9 +30,9 @@ start:
 stop:
 	docker compose stop
 
-.PHONY: init-genesis-state
-init-genesis-state:
-	docker run --platform=linux/amd64 -it -v "$(shell pwd):/devnet" --rm ghcr.io/fluentlabs-xyz/fluent --chain=dev init --datadir=/devnet/datadir
+#.PHONY: init-genesis-state
+#init-genesis-state:
+	#docker run --platform=linux/amd64 -it -v "$(shell pwd):/devnet" --rm ghcr.io/fluentlabs-xyz/fluent --chain=dev init --datadir=/devnet/datadir
 
 .PHONY: delete-state
 delete-state:
@@ -40,6 +40,11 @@ delete-state:
 
 .PHONY: blockscout
 blockscout:
+	docker compose -f ./blockscout/geth.yml pull
+	docker compose -f ./blockscout/geth.yml up -d
+
+.PHONY: stop-blockscout
+stop-blockscout:
 	docker compose -f ./blockscout/geth.yml pull
 	docker compose -f ./blockscout/geth.yml up -d
 
@@ -53,7 +58,7 @@ reset-blockscout:
 	docker compose -f ./blockscout/geth.yml up -d
 
 .PHONY: reset
-reset: stop delete-state init-genesis-state
+reset: stop delete-state start
 
 .PHONY: all
 all: install-docker install-acme cook start
