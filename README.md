@@ -18,7 +18,8 @@ make install-docker
 make install-acme
 export CHAIN_ID=1337
 export DOMAIN_NAME=<YOUR DOMAIN NAME>
-make all
+make cook
+make start
 ```
 
 P.S: Variable `DOMAIN_NAME` should be set to your domain
