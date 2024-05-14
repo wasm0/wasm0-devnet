@@ -16,13 +16,13 @@ install-acme:
 
 .PHONY: cook
 cook: check-env
-	envsubst < ./docker-compose.template.yaml > ./docker-compose.yaml
-	envsubst < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
-	envsubst < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
-	envsubst < ./nginx/nginx.template.conf > ./nginx/nginx.conf
+	envsubst '${DOMAIN_NAME}' < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
+	envsubst '${DOMAIN_NAME}' < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
+	echo "DOMAIN_NAME=${DOMAIN_NAME}" > .env
 
 .PHONY: start
 start:
+	export $(xargs <.env)
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
 

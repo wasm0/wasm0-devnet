@@ -1,9 +1,8 @@
 /.idea
 /datadir
+.env
 .DS_Store
 
 # exclude modiifed files
-docker-compose.yaml
 blockscout/envs/common-blockscout.env
 blockscout/envs/common-frontend.env
-nginx/nginx.conf
