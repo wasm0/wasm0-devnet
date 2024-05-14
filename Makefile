@@ -16,8 +16,8 @@ install-acme:
 
 .PHONY: cook
 cook: check-env
-	envsubst '${DOMAIN_NAME}' < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
-	envsubst '${DOMAIN_NAME}' < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
+	envsubst < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
+	envsubst < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
 	echo "DOMAIN_NAME=${DOMAIN_NAME}" > .env
 
 .PHONY: start
