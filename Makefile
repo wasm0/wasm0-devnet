@@ -42,6 +42,6 @@ reset-blockscout: check-env
 	rm -rf ./blockscout/services/stats-db-data || true
 	docker compose -f ./blockscout/geth.yml up -d
 
-reset: stop delete-state init-genesis-state
+reset: check-env stop delete-state init-genesis-state
 
-all: start
+all: check-env start
