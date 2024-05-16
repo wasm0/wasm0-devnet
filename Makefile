@@ -1,39 +1,54 @@
-.PHONE: install-docker install-acme start check-env start stop reset-explorer delete-state reset all
-
+.PHONY: check-env
 check-env:
 	export CHAIN_ID=1337
-#ifndef DOMAIN_NAME
-#	$(warning env DOMAIN_NAME is undefined)
-#endif
-#ifndef CHAIN_ID
-#	$(error env CHAIN_ID is undefined)
-#endif
+ifndef DOMAIN_NAME
+	$(warning env DOMAIN_NAME is undefined)
+endif
 
+.PHONY: install-docker
 install-docker:
 	bash ./scripts/install-docker.bash
 
+.PHONY: install-acme
 install-acme:
-	curl https://get.acme.sh || true
+	curl https://get.acme.sh | sh -s email=my@example.com
 	bash ./scripts/issue-cert.bash
 
+.PHONY: cook
+cook: check-env
+	envsubst < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
+	envsubst < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
+	echo "DOMAIN_NAME=${DOMAIN_NAME}" > .env
+
+.PHONY: start
 start: check-env
+	export $(xargs <.env)
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
 
+.PHONY: stop
 stop: check-env
 	docker compose stop
 
-reset-explorer: check-env stop
-	docker compose stop
-	rm -rf ./datadir/blockscout
-	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
+#.PHONY: init-genesis-state
+#init-genesis-state:
+	#docker run --platform=linux/amd64 -it -v "$(shell pwd):/devnet" --rm ghcr.io/fluentlabs-xyz/fluent --chain=dev init --datadir=/devnet/datadir
 
-init-genesis-state: check-env
-	docker run --platform=linux/amd64 -it -v "$(shell pwd):/devnet" --rm ghcr.io/fluentlabs-xyz/fluent --chain=dev init --datadir=/devnet/datadir
-
+.PHONY: delete-state
 delete-state:
-	rm -rf ./datadir
+	rm -rf ./datadir || true
 
+.PHONY: blockscout
+blockscout: check-env
+	docker compose -f ./blockscout/geth.yml pull
+	docker compose -f ./blockscout/geth.yml up -d
+
+.PHONY: stop-blockscout
+stop-blockscout: check-env
+	docker compose -f ./blockscout/geth.yml pull
+	docker compose -f ./blockscout/geth.yml up -d
+
+.PHONY: reset-blockscout
 reset-blockscout: check-env
 	docker compose -f ./blockscout/geth.yml down || true
 	rm -rf ./blockscout/services/blockscout-db-data || true
@@ -42,6 +57,8 @@ reset-blockscout: check-env
 	rm -rf ./blockscout/services/stats-db-data || true
 	docker compose -f ./blockscout/geth.yml up -d
 
-reset: check-env stop delete-state init-genesis-state
+.PHONY: reset
+reset: stop delete-state start
 
-all: check-env start
+.PHONY: all
+all: install-docker install-acme cook start
