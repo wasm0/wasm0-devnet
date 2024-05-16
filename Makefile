@@ -20,7 +20,7 @@ start: check-env
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
 
-stop:
+stop: check-env
 	docker compose stop
 
 reset-explorer: check-env stop
@@ -28,13 +28,13 @@ reset-explorer: check-env stop
 	rm -rf ./datadir/blockscout
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
 
-init-genesis-state:
+init-genesis-state: check-env
 	docker run --platform=linux/amd64 -it -v "$(shell pwd):/devnet" --rm ghcr.io/fluentlabs-xyz/fluent --chain=dev init --datadir=/devnet/datadir
 
 delete-state:
 	rm -rf ./datadir
 
-reset-blockscout:
+reset-blockscout: check-env
 	docker compose -f ./blockscout/geth.yml down || true
 	rm -rf ./blockscout/services/blockscout-db-data || true
 	rm -rf ./blockscout/services/logs || true
