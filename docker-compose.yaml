@@ -3,7 +3,7 @@ services:
   fluent:
     image: "fluentxyz/fluent"
     command:
-      - "--chain=dev"
+      - "--chain=developer-preview"
       - "node"
       - "--datadir=/datadir"
       - "--dev"
