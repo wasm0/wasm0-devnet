@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   fluent:
-    image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.2"
+    image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.3"
     command:
       - "--chain=developer-preview"
       - "node"
