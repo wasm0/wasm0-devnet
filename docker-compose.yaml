@@ -35,12 +35,12 @@ services:
   relayer:
     image: fluentxyz/relayer:latest
     environment:
-      L1_CONFIG_ENDPOINT: "https://eth-sepolia.g.alchemy.com/v2/DBpiq0grreNG4r0wdvAUCfdGJswhIPhk"
-      L1_CONFIG_WS: "wss://eth-sepolia.g.alchemy.com/v2/DBpiq0grreNG4r0wdvAUCfdGJswhIPhk"
-      L1_CONFIG_BRIDGE_ADDRESS: "0xf70f7cADD71591e96BD696716A4A2bA6286c82e8"
+      L1_CONFIG_ENDPOINT: "https://ethereum-holesky-rpc.publicnode.com"
+      L1_CONFIG_WS: "wss://ethereum-holesky-rpc.publicnode.com"
+      L1_CONFIG_BRIDGE_ADDRESS: "0x26bDc9d2aA7BB9beE05ED737E16482D5718B02c3"
       L1_CONFIG_SIGNER: "e2d5c4f37c863ef55779345bb3725b63bb4e17b51f9e6cad2c0e57e39d7c7ff7"
       L2_CONFIG_ENDPOINT: "https://rpc.dev.thefluent.xyz/"
-      L2_CONFIG_WS: "ws://rpc.dev.thefluent.xyz:8546/"
+      L2_CONFIG_WS: "wss://rpc.dev.thefluent.xyz/ws"
       L2_CONFIG_BRIDGE_ADDRESS: "0x6Ff08946Cef705D7bBC5deef4E56004e2365979f"
       L2_CONFIG_SIGNER: "e2d5c4f37c863ef55779345bb3725b63bb4e17b51f9e6cad2c0e57e39d7c7ff7"
       RELAYER_ENABLED: "true"
@@ -48,6 +48,7 @@ services:
       CELESTIA_ENABLED: "false"
       EIGEN_ENABLED: "false"
       AVAIL_ENABLED: "false"
+      RELAYER_REDIS_ENDPOINT: "172.17.0.1:6379"
     restart: always
   nginx:
     build: "./nginx"
@@ -61,3 +62,10 @@ services:
       - "443:443"
       - "80:80"
     restart: always
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/redis/dаta:/root/redis
