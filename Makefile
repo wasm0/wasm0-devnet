@@ -1,6 +1,6 @@
 .PHONY: check-env
 check-env:
-	export CHAIN_ID=1337
+	export CHAIN_ID=20993
 ifndef DOMAIN_NAME
 	$(warning env DOMAIN_NAME is undefined)
 endif

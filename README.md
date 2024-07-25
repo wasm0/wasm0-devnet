@@ -16,7 +16,7 @@ git clone https://github.com/fluentlabs-xyz/developer-preview --recursive
 cd developer-preview
 make install-docker
 make install-acme
-export CHAIN_ID=1337
+export CHAIN_ID=20993
 export DOMAIN_NAME=<YOUR DOMAIN NAME>
 make cook
 make start

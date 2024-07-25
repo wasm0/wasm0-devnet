@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   fluent:
-    image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.3"
+    image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.4"
     command:
       - "--chain=developer-preview"
       - "node"
@@ -30,7 +30,7 @@ services:
     image: chainflag/eth-faucet:1.1.0
     environment:
       WEB3_PROVIDER: "https://rpc.${DOMAIN_NAME}/"
-      PRIVATE_KEY: "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+      PRIVATE_KEY: "<FAUCET PRIVATE KEY HERE>"
     restart: always
   relayer:
     image: fluentxyz/relayer:latest
@@ -48,7 +48,7 @@ services:
       CELESTIA_ENABLED: "false"
       EIGEN_ENABLED: "false"
       AVAIL_ENABLED: "false"
-      RELAYER_REDIS_ENDPOINT: "172.17.0.1:6379"
+      RELAYER_REDIS_ENDPOINT: "redis:6379"
     restart: always
   nginx:
     build: "./nginx"
@@ -65,7 +65,5 @@ services:
   redis:
     image: redis:latest
     restart: always
-    ports:
-      - "6379:6379"
     volumes:
       - ~/redis/dаta:/root/redis
