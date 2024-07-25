@@ -27,6 +27,8 @@ services:
       - db:database
     environment:
         ETHEREUM_JSONRPC_VARIANT: 'geth'
+        CHAIN_ID: '20993'
+        TRACE_FIRST_BLOCK: '1200'
 
   visualizer:
     extends:
