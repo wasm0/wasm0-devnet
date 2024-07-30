@@ -33,7 +33,7 @@ services:
       PRIVATE_KEY: "<FAUCET PRIVATE KEY HERE>"
     restart: always
   relayer:
-    image: fluentxyz/relayer:latest
+    image: "ghcr.io/fluentlabs-xyz/bridge-relayer:latest"
     environment:
       L1_CONFIG_ENDPOINT: "https://ethereum-holesky-rpc.publicnode.com"
       L1_CONFIG_WS: "wss://ethereum-holesky-rpc.publicnode.com"
