@@ -62,3 +62,9 @@ reset: stop delete-state start
 
 .PHONY: all
 all: install-docker install-acme cook start
+
+.PHONY: clean-tx-pool
+clean-tx-pool:
+	docker stop developer-preview-fluent-1
+	rm datadir/txpool-transactions-backup.rlp
+	docker start developer-preview-fluent-1
