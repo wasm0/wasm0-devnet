@@ -41,7 +41,7 @@ delete-state:
 .PHONY: blockscout
 blockscout: check-env
 	docker compose -f ./blockscout/geth.yml pull
-	docker compose -f ./blockscout/geth.yml up -d
+	docker compose -f ./blockscout/geth.yml up -d -p blockscout
 
 .PHONY: stop-blockscout
 stop-blockscout: check-env
