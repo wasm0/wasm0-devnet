@@ -24,7 +24,7 @@ cook: check-env
 start: check-env
 	export $(xargs <.env)
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
-	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d
+	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d --build
 
 .PHONY: stop
 stop: check-env
