@@ -40,7 +40,7 @@ delete-state:
 
 .PHONY: blockscout
 blockscout: check-env
-	docker compose -f ./blockscout/geth.yml pull
+	docker compose -f ./blockscout/geth.yml --project-name blockscout pull
 	docker compose -f ./blockscout/geth.yml --project-name blockscout up -d
 
 .PHONY: stop-blockscout
@@ -49,12 +49,12 @@ stop-blockscout: check-env
 
 .PHONY: reset-blockscout
 reset-blockscout: check-env
-	docker compose -f ./blockscout/geth.yml down || true
+	docker compose -f ./blockscout/geth.yml --project-name blockscout down || true
 	rm -rf ./blockscout/services/blockscout-db-data || true
 	rm -rf ./blockscout/services/logs || true
 	rm -rf ./blockscout/services/redis-data || true
 	rm -rf ./blockscout/services/stats-db-data || true
-	docker compose -f ./blockscout/geth.yml up -d
+	docker compose -f ./blockscout/geth.yml --project-name blockscout up -d
 
 .PHONY: reset
 reset: stop delete-state start
