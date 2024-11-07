@@ -64,6 +64,6 @@ all: install-docker install-acme cook start
 
 .PHONY: clean-tx-pool
 clean-tx-pool:
-	docker stop developer-preview-fluent-1
+	docker stop developer-preview_fluent_1
 	rm datadir/txpool-transactions-backup.rlp
-	docker start developer-preview-fluent-1
+	docker start developer-preview_fluent_1
