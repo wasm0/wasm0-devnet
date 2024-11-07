@@ -1,5 +1,6 @@
 .PHONY: check-env
 check-env:
+	export $(grep -v '^#' .env | xargs -d '\n')
 	export CHAIN_ID=20993
 ifndef DOMAIN_NAME
 	$(error env DOMAIN_NAME is undefined)
@@ -25,7 +26,6 @@ cook: check-env
 
 .PHONY: start
 start: check-env
-	export $(grep -v '^#' .env | xargs -d '\n')
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d --build
 
