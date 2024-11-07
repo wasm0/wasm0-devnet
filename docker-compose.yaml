@@ -31,7 +31,7 @@ services:
     image: chainflag/eth-faucet:1.1.0
     environment:
       WEB3_PROVIDER: "https://rpc.${DOMAIN_NAME}/"
-      PRIVATE_KEY: "<FAUCET PRIVATE KEY HERE>"
+      PRIVATE_KEY: "${PRIVATE_KEY}"
     restart: always
   relayer:
     image: "ghcr.io/fluentlabs-xyz/bridge-relayer:latest"
