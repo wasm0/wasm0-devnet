@@ -2,7 +2,10 @@
 check-env:
 	export CHAIN_ID=20993
 ifndef DOMAIN_NAME
-	$(warning env DOMAIN_NAME is undefined)
+	$(error env DOMAIN_NAME is undefined)
+endif
+ifndef PRIVATE_KEY
+	$(error env is undefined)
 endif
 
 .PHONY: install-docker
@@ -18,11 +21,11 @@ install-acme:
 cook: check-env
 	envsubst < ./blockscout/envs/common-blockscout.template.env > ./blockscout/envs/common-blockscout.env
 	envsubst < ./blockscout/envs/common-frontend.template.env > ./blockscout/envs/common-frontend.env
-	echo "DOMAIN_NAME=${DOMAIN_NAME}" > .env
+	echo "DOMAIN_NAME=${DOMAIN_NAME}\nPRIVATE_KEY=${PRIVATE_KEY}" > .env
 
 .PHONY: start
 start: check-env
-	export $(xargs <.env)
+	export $(grep -v '^#' .env | xargs -d '\n')
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - pull
 	cat ./docker-compose.yaml | envsubst | docker-compose -f - up -d --build
 
