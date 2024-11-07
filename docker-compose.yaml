@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.9"
 services:
   fluent:
     image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.5"
@@ -27,24 +27,6 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     restart: always
-#  lighthouse:
-#    image: "sigp/lighthouse:v5.3.0"
-#    command:
-#      - "--testnet-dir=."
-#      - "bn"
-#      - "--datadir=/datadir"
-#      - "--eth1"
-#      - "--http1"
-#      - "--http-allow-sync-stalled"
-#      - "--execution-endpoints=http://fluent:8551"
-#      - "--enr-udp-port=9000"
-#      - "--enr-tcp-port=9000"
-#      - "--discovery-port=9000"
-#      - "--jwt-secrets=/root/.local/share/reth/dev/jwt.hex"
-#    volumes:
-#      - "./share:/root/.local/share/reth"
-#      - "./datadir/lighthouse:/datadir"
-#    restart: always
   faucet:
     image: chainflag/eth-faucet:1.1.0
     environment:
@@ -86,3 +68,9 @@ services:
     restart: always
     volumes:
       - ~/redis/dаta:/root/redis
+  blockscout-frontend:
+    image: ghcr.io/fluentlabs-xyz/blockscout-frontend:main
+    pull_policy: always
+    env_file:
+      -  ./blockscout/envs/common-frontend.env
+    restart: always
