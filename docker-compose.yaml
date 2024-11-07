@@ -68,8 +68,8 @@ services:
     restart: always
     volumes:
       - ~/redis/dаta:/root/redis
-  blockscout-frontend:
-    image: ghcr.io/fluentlabs-xyz/blockscout-frontend:main
-    env_file:
-      -  ./blockscout/envs/common-frontend.env
-    restart: always
+#  blockscout-frontend:
+#    image: ghcr.io/fluentlabs-xyz/blockscout-frontend:main
+#    env_file:
+#      -  ./blockscout/envs/common-frontend.env
+#    restart: always
