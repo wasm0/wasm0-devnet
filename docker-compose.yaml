@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.5"
 services:
   fluent:
     image: "ghcr.io/fluentlabs-xyz/fluent:v0.1.0-dev.5"
@@ -70,7 +70,6 @@ services:
       - ~/redis/dаta:/root/redis
   blockscout-frontend:
     image: ghcr.io/fluentlabs-xyz/blockscout-frontend:main
-    pull_policy: always
     env_file:
       -  ./blockscout/envs/common-frontend.env
     restart: always
