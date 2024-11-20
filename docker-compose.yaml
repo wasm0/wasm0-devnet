@@ -32,6 +32,7 @@ services:
     environment:
       WEB3_PROVIDER: "https://rpc.${DOMAIN_NAME}/"
       PRIVATE_KEY: "${PRIVATE_KEY}"
+    network_mode: host
     restart: always
   relayer:
     image: "ghcr.io/fluentlabs-xyz/bridge-relayer:latest"
